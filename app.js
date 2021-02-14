@@ -4,7 +4,8 @@ const requestAPI = require("request");
 const app = express();
 const port = 3000;
 
-app.set("view engine", "hbs");``
+app.set("view engine", "hbs");
+app.set("view engine", { layout: "layout" });``
 
 app.get("/", (request, response) => {
   const url = "http://www.cbr-xml-daily.ru/daily_json.js";
