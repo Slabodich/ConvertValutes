@@ -5,12 +5,12 @@ const app = express();
 const port = 3000;
 
 app.set("view engine", "hbs");
-app.set("view engine", { layout: "layout" });``
+app.set("view options", { layout: "layout" });
 
 app.get("/", (request, response) => {
   const url = "http://www.cbr-xml-daily.ru/daily_json.js";
 
-  requestAPI(url, (error, request2, data) => {
+  requestAPI(url, (error, request, data) => {
       let model = {
           Valute: {}
       };
@@ -24,7 +24,7 @@ app.get("/", (request, response) => {
                 NumCode: "0",
                 CharCode: "RUS",
                 Nominal: 1,
-                Name: "Российйский рубль",
+                Name: "Российский рубль",
                 Value: 1,
                 Previous: 1
             };
@@ -32,8 +32,8 @@ app.get("/", (request, response) => {
             for (const key in model.Valute) {
                 const element = model.Valute[key];
 
-                element.Value = element.Value / element.Nominal;
-                element.DeValue = 1 / element.Value;       
+                element.Value = Math.round((element.Value / element.Nominal) * 1000) / 1000;
+                element.DeValue = Math.round((1 / element.Value) * 1000) / 1000;      
             }
         } 
 
@@ -48,3 +48,4 @@ app.get("/*", (request, response) => {
 app.listen(port, () => {
     console.log(`App is running http://localhost:${port}`);
 });
+
