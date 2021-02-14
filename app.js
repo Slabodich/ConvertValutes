@@ -20,7 +20,7 @@ app.get("/", (request, response) => {
             model = JSON.parse(data);
 
             model.Valute["RUS"] = {
-                ID: "R0",
+                ID: "0",
                 NumCode: "0",
                 CharCode: "RUS",
                 Nominal: 1,
